@@ -17,6 +17,11 @@ class Prospect: Identifiable, Codable {
 class Prospects: ObservableObject {
     @Published var people: [Prospect]
     
+    func toggle(_ prospect: Prospect) {
+        objectWillChange.send()
+        prospect.isContacted.toggle()
+    }
+    
     init() {
         self.people = []
     }
