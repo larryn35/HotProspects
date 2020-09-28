@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import UserNotifications
 
 struct ProspectsView: View {
     @EnvironmentObject var prospects: Prospects
@@ -58,6 +59,40 @@ struct ProspectsView: View {
         }
     }
     
+    func addNotification(for prospect: Prospect) {
+        let center = UNUserNotificationCenter.current()
+        
+        let addRequest = {
+            let content = UNMutableNotificationContent()
+            content.title = "Contact \(prospect.name)"
+            content.subtitle = prospect.emailAddress
+            content.sound = UNNotificationSound.default
+            
+            var dateComponents = DateComponents()
+            dateComponents.hour = 9 // Triggers at 9:00AM
+            //            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) // testing trigger
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request)
+        }
+        
+        center.getNotificationSettings { settings in
+            if settings.authorizationStatus == .authorized {
+                addRequest()
+            } else {
+                center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        addRequest()
+                    } else {
+                        print("Request failed")
+                    }
+                }
+            }
+        }
+        
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -71,6 +106,9 @@ struct ProspectsView: View {
                     .contextMenu {
                         Button(prospect.isContacted ? "Mark Uncontacted" : "Mark Conctacted") {
                             self.prospects.toggle(prospect)
+                        }
+                        Button("Remind Me") {
+                            self.addNotification(for: prospect)
                         }
                     }
                 }
