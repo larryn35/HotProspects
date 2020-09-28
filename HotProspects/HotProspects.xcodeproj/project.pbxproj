@@ -11,6 +11,8 @@
 		464956F9251FEAB700B34B26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464956F8251FEAB700B34B26 /* ContentView.swift */; };
 		464956FB251FEABD00B34B26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 464956FA251FEABD00B34B26 /* Assets.xcassets */; };
 		464956FE251FEABD00B34B26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 464956FD251FEABD00B34B26 /* Preview Assets.xcassets */; };
+		4649571D25219A4C00B34B26 /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4649571C25219A4C00B34B26 /* ProspectsView.swift */; };
+		4649572025219A5800B34B26 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4649571F25219A5800B34B26 /* MeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		464956FA251FEABD00B34B26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		464956FD251FEABD00B34B26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		464956FF251FEABD00B34B26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4649571C25219A4C00B34B26 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
+		4649571F25219A5800B34B26 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			children = (
 				464956F6251FEAB600B34B26 /* HotProspectsApp.swift */,
 				464956F8251FEAB700B34B26 /* ContentView.swift */,
+				4649571C25219A4C00B34B26 /* ProspectsView.swift */,
+				4649571F25219A5800B34B26 /* MeView.swift */,
 				464956FA251FEABD00B34B26 /* Assets.xcassets */,
 				464956FF251FEABD00B34B26 /* Info.plist */,
 				464956FC251FEABD00B34B26 /* Preview Content */,
@@ -138,6 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4649572025219A5800B34B26 /* MeView.swift in Sources */,
+				4649571D25219A4C00B34B26 /* ProspectsView.swift in Sources */,
 				464956F9251FEAB700B34B26 /* ContentView.swift in Sources */,
 				464956F7251FEAB600B34B26 /* HotProspectsApp.swift in Sources */,
 			);
