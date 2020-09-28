@@ -50,16 +50,16 @@ struct ProspectsView: View {
                     }
                 }
             }
-                .navigationBarTitle(title)
-                .navigationBarItems(trailing: Button(action: {
-                    let prospect = Prospect()
-                    prospect.name = "Lare N"
-                    prospect.emailAddress = "Lare@email.com"
-                    self.prospects.people.append(prospect)
-                }) {
-                    Image(systemName: "qrcode.viewfinder")
-                    Text("Scan")
-                })
+            .navigationBarTitle(title)
+            .navigationBarItems(trailing: Button(action: {
+                let prospect = Prospect()
+                prospect.name = "Lare N"
+                prospect.emailAddress = "Lare@email.com"
+                self.prospects.people.append(prospect)
+            }) {
+                Image(systemName: "qrcode.viewfinder")
+                Text("Scan")
+            })
         }
     }
 }
