@@ -12,12 +12,13 @@ import UserNotifications
 struct ProspectsView: View {
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+    @State private var isShowingSortBy = false
+
     let filter: FilterType
     
     enum FilterType {
         case none, contacted, uncontacted
     }
-    
     
     var title: String {
         switch filter {
@@ -70,8 +71,8 @@ struct ProspectsView: View {
             
             var dateComponents = DateComponents()
             dateComponents.hour = 9 // Triggers at 9:00AM
-            //            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) // testing trigger
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) // triggers in 5 sec (testing)
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             center.add(request)
@@ -97,15 +98,25 @@ struct ProspectsView: View {
         NavigationView {
             List {
                 ForEach(filteredProspects) { prospect in
+                    HStack {
                     VStack(alignment: .leading) {
                         Text(prospect.name)
                             .font(.headline)
                         Text(prospect.emailAddress)
                             .foregroundColor(.secondary)
                     }
+                        Spacer()
+                        if prospect.isContacted {
+                            Image(systemName: "checkmark.seal.fill")
+                                .padding(.trailing)
+                        }
+                    }
                     .contextMenu {
                         Button(prospect.isContacted ? "Mark Uncontacted" : "Mark Conctacted") {
                             self.prospects.toggle(prospect)
+                        }
+                        Button("Remove person") {
+                            self.prospects.deleteProspect(prospect)
                         }
                         Button("Remind Me") {
                             self.addNotification(for: prospect)
@@ -114,7 +125,12 @@ struct ProspectsView: View {
                 }
             }
             .navigationBarTitle(title)
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(leading: Button(action: {
+                self.isShowingSortBy = true
+            }) {
+                Text("Sort")
+            }
+            , trailing: Button(action: {
                 self.isShowingScanner = true
             }) {
                 Image(systemName: "qrcode.viewfinder")
@@ -123,9 +139,21 @@ struct ProspectsView: View {
             .sheet(isPresented: $isShowingScanner) {
                 CodeScannerView(codeTypes: [.qr], simulatedData: "Larry N\nlare@email.com", completion: self.handleScan)
             }
+            
+            .actionSheet(isPresented: $isShowingSortBy) {
+                ActionSheet(title: Text("Sort people by"), buttons: [
+                    .default(Text("name")) {
+                        self.prospects.sortByName()
+                    },
+                    .default(Text("most recent")) {
+                        self.prospects.sortByDate()
+                    }
+                ])
+            }
         }
     }
 }
+
 
 struct ProspectsView_Previews: PreviewProvider {
     static var previews: some View {

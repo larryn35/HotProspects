@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var prospects = Prospects()
-    
+
     var body: some View {
         
         TabView {
